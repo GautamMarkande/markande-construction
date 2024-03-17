@@ -6,12 +6,12 @@ function Header() {
         <header className="bg-slate-200 shadow-md ">
             <div className="flex justify-between items-center mx-auto max-w-6xl p-3">
                 <Link to="/">
-                <h1 className="font-bold text-sm sm:text-xl md:text-2xl lg:text-4xl flex flex-wrep">
+                <h1 className="font-bold text-sm sm:text-xl md:text-2xl lg:text-4xl flex flex-wrep flex-col sm:flex-row">
                     <span className="text-slate-500">Markande</span>
                     <span className="text-slate-700">Construction</span>
                 </h1>
                 </Link>
-                <form className="bg-slate-100 rounded-lg p-3 flex items-center w-24 sm:w-64">
+                <form className="bg-slate-100 rounded-lg p-3 flex items-center w-30 sm:w-64">
                     <input type="text" placeholder="Search..." 
                     className="bg-transparent focus:outline-none w-24 sm:w-64"
                     

@@ -9,6 +9,7 @@ const validateUser=({name,username,email,password})=>{
          else if(typeof email!=='string')reject('Email should be a string');
          else if(!validator.validate(email))reject("please  provide a valid Email");
          else if(typeof password!=='string')reject("password should be in string")
+         else if(password.length<5)reject("password length should ")
          else{
         resolve(true)
     }

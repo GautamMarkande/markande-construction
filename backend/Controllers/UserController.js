@@ -1,6 +1,6 @@
 const express = require('express')
 const { validateUser } = require('../Utils/Validation')
-const { registerUser } = require('../Models/UserModel')
+const { registerUser ,verifyUser} = require('../Models/UserModel')
 const bcrypt = require('bcrypt')
 const UserRouter = express.Router()
 
@@ -22,11 +22,27 @@ UserRouter.post('/register',async(req,res)=>{
         })
     }
     try {
+        await verifyUser({username,email})
+    } catch (error) {
+        return res.send({
+            status:400,
+            error:error
+        })
+    }
+    try {
         const salt = parseInt(process.env.SALT)||9
         const hashedPass = await bcrypt.hash(password,salt)
-        // console.log(hashedPass)
+        
         const userDb = await registerUser({name, username, email, hashedPass})
-        console.log(userDb)
+       
+        if(!userDb){
+            throw new Error("Error creating the account")
+        }else{
+            return res.send({
+                status:201,
+                message:`The account ${username} has been created`
+            })
+        }
     } catch (error) {
         return res.send("error")
     }
