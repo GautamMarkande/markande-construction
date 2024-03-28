@@ -21,5 +21,9 @@ const UserSchema = new Schema({
     type:String,
     required:true
   },
+  photo:{
+    type:String,
+    default:"https://i.pinimg.com/originals/ad/73/1c/ad731cd0da0641bb16090f25778ef0fd.jpg"
+  }
 },{timestamps:true})
 module.exports = mongoose.model('user',UserSchema);

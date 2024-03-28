@@ -1,15 +1,21 @@
-import {configureStore} from '@reduxjs/toolkit'
-import {setupListeners} from '@reduxjs/toolkit/query'
-import { myApis } from './services/api'
-
-export const store = configureStore({
-    reducer:{
-
-        [myApis.reducerPath]:myApis.reducer
-    },
-    middleware:(getDefaultMiddleware)=>(
-     getDefaultMiddleware().concat(myApis.middleware)
-    )
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import userReducer from './user/Userslice'
+import {persistReducer,persistStore} from 'redux-persist'; 
+import storage from "redux-persist/lib/storage";
+const RootReducer = combineReducers({
+    user:userReducer
 })
-setupListeners(store.dispatch)
-// Infer the `RootState` and `AppDispatch` types from the store itself.
+const persistConfig= {
+    key:'root',
+    version:1,
+    storage
+}
+const persistedReducer = persistReducer(persistConfig,RootReducer)
+export const store = configureStore({
+    reducer:persistedReducer,
+    middleware:(getDefaultMiddleware)=>
+        getDefaultMiddleware({
+            serializableCheck:false
+        })
+})
+export const  persistor = persistStore(store);

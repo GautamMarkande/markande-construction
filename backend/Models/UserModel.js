@@ -7,7 +7,8 @@ const registerUser=({name, username, email, hashedPass})=>{
                     name:name,
                     username:username,
                     email:email,
-                    password:hashedPass
+                    password:hashedPass,
+                    
                 })
                 const userDb = await userObj.save()
                 resolve(userDb)
@@ -39,4 +40,20 @@ const verifyUser=({username,email})=>{
         }
  })
 }
-module.exports = {registerUser,verifyUser}
+
+const  findUser=({userId})=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            const UserDb = await UserSchema.findOne({
+                $or:[{username:userId},{email:userId}]
+            })
+            console.log("inside findusr",UserDb)
+            resolve(UserDb)
+        } catch (error) {
+            console.log("DBERR",error)
+            reject(error)
+        }
+    })
+       
+}
+module.exports = {registerUser,verifyUser,findUser}

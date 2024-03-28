@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { useRegisterMutation } from "../redux/services/api"
+// import { useRegisterMutation } from "../redux/services/api"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function SignUp() {
   const navigate = useNavigate()
-  const [register,result]=useRegisterMutation()
+  // const [register,result]=useRegisterMutation()
   const [errorMsg,seterrorMsg]=useState("")
   const [isLoading,setisLoading] = useState(false)
   const [formData,setFormData]=useState({})
@@ -24,19 +24,34 @@ function SignUp() {
     
          e.preventDefault()
          setisLoading(true)
-          const res = await register(formData)
-          if(res.data.status===400 ||res.data.status===500){
-            console.log(res.data)
-            seterrorMsg(res.data.error)
-            setisLoading(false)
-          }else{
-            console.log(res.data)
-            setTimeout(() => {
-              navigate("/sign-in");
-            }, 2000);
-            toast.success(res.data.message)
+          // const res = await register(formData)
+          try {
+            const res = await fetch('/api/user/register', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            });
+            var data=await res.json()
              setisLoading(false)
+             if (data.status === 400 || data.status===500) {
+              throw "Error in signup";
+            }
+            setisLoading(false);
+              
+            toast.success(data.message);
+            setisLoading(false);
+            
+            setTimeout(()=>{
+              navigate('/sign-in');
+            },3000)
+            // 
+          } catch (error) {
+            toast.error(data.error);
+            setisLoading(false)
           }
+          
   }
   return (
     <div className="p-3 max-w-xl mx-auto
