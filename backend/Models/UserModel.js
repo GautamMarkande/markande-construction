@@ -1,6 +1,7 @@
 const UserSchema = require("../Schemas/UserSchema")
 
-const registerUser=({name, username, email, hashedPass})=>{
+const registerUser=({name, username, email, hashedPass,photo})=>{
+    console.log({name, username, email, hashedPass})
       return new Promise(async(resolve,reject)=>{
             try {
                 const userObj = new UserSchema({
@@ -8,6 +9,7 @@ const registerUser=({name, username, email, hashedPass})=>{
                     username:username,
                     email:email,
                     password:hashedPass,
+                    photo:photo || "https://i.pinimg.com/originals/ad/73/1c/ad731cd0da0641bb16090f25778ef0fd.jpg"
                     
                 })
                 const userDb = await userObj.save()

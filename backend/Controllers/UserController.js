@@ -111,19 +111,20 @@ UserRouter.post('/google', async (req, res) => {
     console.log({ name, email, photo })
     try {
         const userDb = await findUser({ userId: email });
-        const { password: passw, ...rest } = userDb._doc
         if (userDb) {
+            const { password: passw, ...rest } = userDb._doc
             return res.send({
                 status: 400,
                 error: 'This account has already been created',
                 data: rest
             })
         }
-        // const randomPass = Math.random().toString(36).slice(-8)+Math.random().toString(36).slice(-8)
-        // const hashedPass = await bcrypt.hash("123456", 10);
-        
+        const randomPass = Math.random().toString(36).slice(-8)+Math.random().toString(36).slice(-8)
+        console.log(randomPass)
+        const hashedPass = await bcrypt.hash(randomPass, 10);
+
         console.log(hashedPass)
-            const newUser = await registerUser({name, username:name, email, hashedPass})
+            const newUser = await registerUser({name, username:name, email, hashedPass,photo})
             console.log(newUser)
             if(!newUser){
                 throw Error("Failed to create an account"+newUser)
@@ -131,9 +132,11 @@ UserRouter.post('/google', async (req, res) => {
             return res.send({
                 status: 200,
                 message:"login successful",
+                data: {...newUser._doc ,password :'hidden'}
+                
             })
     } catch (error) {
-
+       console.log(error)
         return res.send({
             status: 500,
             error:error,
