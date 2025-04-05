@@ -2,7 +2,6 @@
 // import {setupListeners} from '@reduxjs/toolkit/query'
 // import { myApis } from './services/api'
 
-
 // export const store = configureStore({
 //     reducer:{
 //         [myApis.reducerPath]:myApis.reducer

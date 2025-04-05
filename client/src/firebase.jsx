@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "markande-construction",
   storageBucket: "markande-construction.appspot.com",
   messagingSenderId: "123780111369",
-  appId: "1:123780111369:web:2b87db9a1d0bc09da3acd8"
+  appId: "1:123780111369:web:2b87db9a1d0bc09da3acd8",
 };
 
 // Initialize Firebase
