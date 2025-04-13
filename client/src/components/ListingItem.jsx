@@ -40,9 +40,9 @@ function ListingItem({ listing }) {
           </p>
           <p className="text-gray-600 text-sm font-semibold">
             {listing.offer
-              ? listing.discountPrice.toLocaleString("en-US")
-              : listing.regularPrice.toLocaleString("en-US")}{" "}
-            {listing.type === "rent" ? "$/month" : "$"}
+              ? `₹${listing.discountPrice.toLocaleString("en-US")}`
+              : `₹${listing.regularPrice.toLocaleString("en-US")}`}{" "}
+            {listing.type === "rent" ? "/month" : ""}
           </p>
           <div className="flex gap-2 items-center text-gray-600 text-sm font-semibold">
             <div className="flex gap-1">

@@ -151,7 +151,7 @@ function Profile() {
     <div className="p-3 max-w-5xl mx-auto flex flex-wrap gap-10">
       <ToastContainer autoClose={2000} />
       {currentUser ? (
-        <div className="flex-1 -ml-5">
+        <div className="flex-1 -ml-9">
           <h1 className="text-center font-semibold text-3xl my-5">Profile</h1>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <input

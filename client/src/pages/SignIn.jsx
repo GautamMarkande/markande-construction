@@ -13,11 +13,9 @@ import {
 import OAuth from "../components/OAuth";
 function SignIn() {
   const navigate = useNavigate();
-  // const [login,result]=useLoginMutation()
-  // const {data} =useTestQuery()
   const { loading, error } = useSelector((state) => state.user);
+  const [from, setFrom] = useState("");
   const dispatch = useDispatch();
-  // const [loading,setloading] = useState(false)
   const [formData, setFormData] = useState({});
   function handleChange(e) {
     setFormData({
@@ -28,8 +26,8 @@ function SignIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     dispatch(signInStart());
+    authFrom("default");
     try {
       const res = await fetch("/api/user/login", {
         method: "POST",
@@ -53,6 +51,9 @@ function SignIn() {
       return toast.error(error);
     }
   }
+  const authFrom = (from) => {
+    setFrom(from);
+  };
   return (
     <div
       className="p-3 max-w-xl mx-auto
@@ -81,11 +82,11 @@ function SignIn() {
           disabled={loading}
           className="border rounded-lg p-3 bg-slate-700 text-white uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Loading" : "sing In"}
+          {from==='default' && loading ? "Loading" : "sing In"}
         </button>
       </form>
       <div className="flex flex-col gap-y-4 m-4">
-        <OAuth />
+        <OAuth authFrom={authFrom} from={from}/>
         <div className="flex gap-2 mt-5">
           <p>don not Have an account? </p>
           <Link to="/sign-up" className="text-blue-600">

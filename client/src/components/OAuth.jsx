@@ -8,14 +8,14 @@ import {
 } from "../redux/user/Userslice";
 import { useNavigate } from "react-router-dom";
 
-function OAuth() {
+function OAuth({ authFrom, from }) {
   const navigate = useNavigate(null);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
   async function handlclick() {
     try {
       dispatch(signInStart());
-
+      authFrom("google");
       const Provider = new GoogleAuthProvider();
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, Provider);
@@ -49,7 +49,7 @@ function OAuth() {
       className="bg-red-700 text-white p-3 rounded-lg uppercase"
       onClick={handlclick}
     >
-      {state.loading ? "loading" : "continue with google"}
+      {from === "google" && state.loading ? "loading" : "continue with google"}
     </button>
   );
 }

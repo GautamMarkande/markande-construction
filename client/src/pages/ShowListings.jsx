@@ -120,7 +120,7 @@ function ShowListings({ handleError }) {
               className="text-green-600 disabled:text-slate-600 bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-lg transition duration-300"
               aria-label="Go to next page"
               onClick={() => handlePagination("next")}
-              disabled={currentPage > listings.length}
+              disabled={currentPage==0 && listings.length<5 ? true :  currentPage > listings.length}
             >
               Next
             </button>
