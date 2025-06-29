@@ -28,10 +28,10 @@ app.get("/", (req, res) => {
 app.use("/api/user", UserRouter);
 app.use("/api/listing", ListingRouter);
 
-// app.use(express.static(path.join(_dirname, "/client/dist")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(_dirname, "client", "dist", "index.html"));
-// });
+app.use(express.static(path.join(_dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(_dirname, "client", "dist", "index.html"));
+});
 app.listen(process.env.PORT, () => {
   console.log("server is running on 3000");
 });
