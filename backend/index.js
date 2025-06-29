@@ -21,6 +21,10 @@ const ListingRouter = require("../backend/Controllers/ListingController");
 app.use(express.json());
 app.use(cookieParser());
 //Routers
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Construction App API");
+});
 app.use("/api/user", UserRouter);
 app.use("/api/listing", ListingRouter);
 
