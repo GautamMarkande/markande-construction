@@ -2,17 +2,17 @@
 
     "version": 2,
  
-    "name": "music-album",
+    "name": "markande-construction",
  
     "builds": [
  
-       { "src": "index.js", "use": "@vercel/node" }
+       { "src": "server.js", "use": "@vercel/node" }
  
     ],
  
     "routes": [
  
-       { "src": "/(.*)", "dest": "/index.js" }
+       { "src": "/(.*)", "dest": "/server.js" }
  
     ]
  
